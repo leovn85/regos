@@ -1,0 +1,44 @@
+name: Release Regos
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build and Release
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Create Release Zip
+        run: |
+          mkdir release_package
+          copy target\release\regos.dll release_package\
+          copy target\release\regos_loader.exe release_package\
+          Compress-Archive -Path release_package\* -DestinationPath Regos-Dumper.zip
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            Regos-Dumper.zip
+            target/release/regos.dll
+            target/release/regos_loader.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
