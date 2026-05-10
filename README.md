@@ -29,7 +29,7 @@ The compiled files will be located in the `target/release/` folder. You need two
 
 
 ## How to Use
-1. Place both **regos.dll** and **regos_loader.exe** in the same folder. *Note: Don't put them inside the game folder.*
+1. Place both **regos.dll** and **regos_loader.exe** in the same folder. ⚠️***Note: Don't put them inside the game folder.***
 2. Run **regos_loader.exe** as Administrator.
 3. The loader will automatically check if a new version of `regos.dll` is available on GitHub and update it for you.
     - *Note: If you choose to use a third-party injector instead of our loader, you must manually download the latest `regos.dll` from the GitHub Releases page.*
