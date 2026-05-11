@@ -134,7 +134,7 @@ fn get_il2cpp_table_offset() -> Result<usize> {
             .context("Pattern not found in UnityPlayer module")?
             + module.0 as usize;
 
-        let qword_addr = addr + 7 + *((addr + 3) as *const i32) as usize;
+        let qword_addr = addr + 7 + std::ptr::read_unaligned((addr + 3) as *const i32) as usize;
         Ok(qword_addr)
     }
 }
