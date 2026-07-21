@@ -31,7 +31,7 @@ pub struct RelicSubstat {
     pub rolls: RelicRolls,
     #[serde(rename = "addedRolls")]
     pub added_rolls: u32,
-	#[serde(skip)]
+    #[serde(skip)]
     pub raw_count: u32,
     #[serde(skip)]
     pub raw_step: u32,
@@ -48,7 +48,7 @@ pub struct Relic {
     pub grade: u32,
     pub main: RelicMainStat,
     pub substats: Vec<RelicSubstat>,
-	#[serde(skip)]
+    #[serde(skip)]
     pub reroll_substats: Option<Vec<Substat>>,
     #[serde(skip)]
     pub preview_substats: Option<Vec<Substat>>,
@@ -76,7 +76,7 @@ pub struct ReliquaryRelic {
     pub level: u32,
     pub mainstat: String,
     pub substats: Vec<Substat>,
-	#[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub reroll_substats: Option<Vec<Substat>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preview_substats: Option<Vec<Substat>>,
@@ -135,11 +135,11 @@ impl From<&Relic> for ReliquaryRelic {
                 let key = substat.stat.replace('%', "_");
 
                 Substat {
-					key,
-					value: substat.value,
-					count: substat.raw_count, 
-					step: substat.raw_step,   
-				}
+                    key,
+                    value: substat.value,
+                    count: substat.raw_count, 
+                    step: substat.raw_step,   
+                }
             })
             .collect();
 
@@ -155,7 +155,7 @@ impl From<&Relic> for ReliquaryRelic {
                 relic.main.stat.clone()
             },
             substats,
-			reroll_substats: relic.reroll_substats.clone(),
+            reroll_substats: relic.reroll_substats.clone(),
             preview_substats: relic.preview_substats.clone(),
             location: relic.equipped_by.clone(),
             lock: relic.lock,
@@ -235,4 +235,18 @@ impl FribbelsMemosprite {
     pub fn if_present(self) -> Option<Self> {
         if self.skill == 0 && self.talent == 0 { None } else { Some(self) }
     }
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct RelicConfigDumpEntry {
+    pub id: u32,
+    pub set_id: u32,
+    pub rarity: i32,
+    #[serde(rename = "type")]
+    pub relic_type: String,
+    pub max_level: i32,
+    pub main_affix_id: u32,
+    pub sub_affix_id: u32,
+    pub icon: String,
+    pub name: String,
 }

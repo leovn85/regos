@@ -7,7 +7,7 @@ use windows::Win32::System::Diagnostics::Debug::{MessageBeep, ReadProcessMemory}
 use windows::Win32::System::LibraryLoader::GetModuleHandleW;
 use windows::Win32::System::ProcessStatus::{GetModuleInformation, MODULEINFO};
 use windows::Win32::System::Threading::GetCurrentProcess;
-use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VK_F10};
+use windows::Win32::UI::Input::KeyboardAndMouse::{GetAsyncKeyState, VK_F10, VK_F11};
 use windows::Win32::UI::WindowsAndMessaging::MESSAGEBOX_STYLE;
 use windows::core::{w, PCWSTR};
 use anyhow::{Context, Result, anyhow};
@@ -79,16 +79,43 @@ fn hotkey_listener_loop() {
                 let domain = il2cpp_runtime::api::il2cpp_domain_get();
                 il2cpp_runtime::api::il2cpp_thread_attach(domain);
 
-                if let Err(e) = crate::helpers::dump_all_equipment_on_demand() {
+                // Dump active equipment and profiles for Fribbels
+                if let Err(e) = crate::dumper::fribbels::dump_all_equipment_on_demand() {
                     log::error!("Extract items failed: {:#?}", e);
                 } else {
-                    if let Err(e) = crate::relic_utils::dump_and_convert_data() {
+                    if let Err(e) = crate::dumper::fribbels::dump_and_convert_data() {
                         log::error!("Convert & Save failed: {:#?}", e);
                     } else {
                         log::info!("Dump successful!");
-                        let _ = MessageBeep(MESSAGEBOX_STYLE(0xFFFFFFFF));
                     }
                 }
+                
+                log::info!("Dumping relic config and sets...");
+                if let Err(e) = crate::dumper::fribbels::dump_relic_sets() {
+                    log::error!("Dump Relic Sets failed: {:#?}", e);
+                }
+                if let Err(e) = crate::dumper::fribbels::dump_relic_config() {
+                    log::error!("Dump Relic Configs failed: {:#?}", e);
+                }
+                
+                log::info!("All dump processes completed!");
+                let _ = MessageBeep(MESSAGEBOX_STYLE(0xFFFFFFFF));
+                
+                thread::sleep(Duration::from_secs(3));
+            }
+            if (GetAsyncKeyState(VK_F11.0 as i32) as u16 & 0x8000) != 0 {
+                log::info!("F11 Pressed! Starting Excel Dumps...");
+                
+                let domain = il2cpp_runtime::api::il2cpp_domain_get();
+                il2cpp_runtime::api::il2cpp_thread_attach(domain);
+
+                if let Err(e) = crate::dumper::excel::dump_game_excel_files() {
+                    log::error!("Excel Dumps failed: {:#?}", e);
+                } else {
+                    log::info!("All Excel files dumped successfully!");
+                    let _ = MessageBeep(MESSAGEBOX_STYLE(0xFFFFFFFF));
+                }
+
                 thread::sleep(Duration::from_secs(3));
             }
         }

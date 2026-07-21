@@ -1,9 +1,10 @@
 #![recursion_limit = "256"]
 #![allow(static_mut_refs)]
 
-mod entry;
-mod helpers;
-mod misc;
-mod relic_utils;
-mod relics;
-mod types;
+pub mod entry;
+pub mod helpers;
+pub mod translation;
+pub mod relics;
+pub mod dumper;
+pub mod types;
+pub mod misc;

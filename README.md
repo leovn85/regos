@@ -9,6 +9,7 @@ It quietly runs in the background and extracts your account's character builds, 
 ## Features
 - **Ultra Lightweight:** The core DLL is extremely small.
 - **On-Demand Dumping:** Data is only processed when you specifically request it.
+- **Local English Translation (F11):** Extracts a localized English textmap from memory so that you can dump relics in English even when playing in other languages.
 - **Auto-Injector & Updater:** Comes with a smart loader that manages everything for you.
 - **Seamless Updates:** The loader automatically checks for the latest `regos.dll` and updates it before injection.
 
@@ -35,11 +36,13 @@ The compiled files will be located in the `target/release/` folder. You need two
     - *Note: If you choose to use a third-party injector instead of our loader, you must manually download the latest `regos.dll` from the GitHub Releases page.*
 4. Open your game launcher and start the game.
 5. The loader will detect the game and automatically inject **regos.dll**.
-6. In the game, open your **Character/Inventory** screen (this ensures the game loads your relic data into RAM).
-7. Press the **F10** key on your keyboard.
-8. You will hear a Windows "Ding" sound indicating the process is complete.
-9. Look inside your game's directory. You will find an `archive_output-YYYY-MM-DD_HH-MM-SS.json` file.
-10. Import this JSON file into your favorite optimizer!
+6. (First-time or Update setup) Switch your game language to English first, then press the F11 key on your keyboard. This will generate TextMapMinimizedEN.json right next to your game executable.
+Note: Once this file is generated, you can switch your game back to Vietnamese, Chinese, or any other language, and it will still dump in English.
+7. In the game, open your **Character/Inventory** screen (this ensures the game loads your relic data into RAM).
+8. Press the **F10** key on your keyboard.
+9. You will hear a Windows "Ding" sound indicating the process is complete.
+10. Look inside your game's directory. You will find an `archive_output-YYYY-MM-DD_HH-MM-SS.json` file.
+11. Import this JSON file into your favorite optimizer!
 
 ## Safety & Disclaimer
 Regos does not modify game memory or inject any malicious code. It only reads the structures already present in your RAM. However, using any third-party tool carries inherent risks.

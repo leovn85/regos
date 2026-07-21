@@ -168,9 +168,9 @@ pub enum RPG_GameCore_AvatarPropertyType {
 	ExtraInitSP,
 	ExtraElementDamageAddedRatio1,
 	ExtraTotalLuckChance,
-	ExtraLuckChanceBase,
+	ExtraTotalLuckChanceBase,
 	ExtraTotalLuckDamage,
-	ExtraLuckDamageBase,
+	ExtraTotalLuckDamageBase,
 	ExtraDamageAddedRatio1,
 	ExtraQuantumResonance,
 	ExtraFrontPowerConvert,
@@ -192,13 +192,6 @@ impl RPG_GameCore_AvatarPropertyRow {
 	
     #[il2cpp_field(name = "PropertyName")]
     pub fn PropertyName(&self) -> RPG_Client_TextID__Boxed {}
-}
-
-#[il2cpp_ref_type("RPG.GameCore.AvatarPropertyExcelTable")]
-pub struct RPG_GameCore_AvatarPropertyExcelTable;
-impl RPG_GameCore_AvatarPropertyExcelTable {
-    #[il2cpp_method(name = "GetData", args = ["RPG.GameCore.AvatarPropertyType"])]
-    pub fn GetData(property_type: RPG_GameCore_AvatarPropertyType) -> RPG_GameCore_AvatarPropertyRow {}
 }
 
 #[il2cpp_enum_type(i32)]
@@ -223,10 +216,6 @@ pub struct RPG_GameCore_FixPoint {
 #[il2cpp_ref_type("RPG.Client.ModuleManager")]
 pub struct RPG_Client_ModuleManager;
 impl RPG_Client_ModuleManager {
-
-    //#[il2cpp_field(name = "AvatarModule")]
-    //pub fn AvatarModule(&self) -> RPG_Client_AvatarModule {}
-	
 	#[il2cpp_field(name = "InventoryModule")]
     pub fn InventoryModule(&self) -> RPG_Client_InventoryModule {}
 	
@@ -249,16 +238,6 @@ pub struct RPG_Client_TextmapStatic;
 impl RPG_Client_TextmapStatic {
     #[il2cpp_method(name = "GetText", args = ["RPG.Client.TextID", "object[]"])]
     pub fn get_text(id: &RPG_Client_TextID, replace_params: *const c_void) -> Il2CppString {}
-}
-
-#[il2cpp_ref_type("RPG.GameCore.AvatarExcelTable")]
-pub struct RPG_GameCore_AvatarExcelTable;
-impl RPG_GameCore_AvatarExcelTable {
-	#[il2cpp_method(name = "GetData", args = ["uint"])]
-	pub fn GetData(avatar_id: u32) -> RPG_GameCore_AvatarRow {}
-	
-	#[il2cpp_method(name = "get_dataDict", args = [])]
-    pub fn get_dataDict() -> *mut std::ffi::c_void {}
 }
 
 #[il2cpp_ref_type("RPG.GameCore.AvatarRow")]
@@ -317,9 +296,6 @@ impl RPG_Client_RelicItemData {
 
     #[il2cpp_getter_property(property = "BelongAvatarID")]
     pub fn get_BelongAvatarID(&self) -> u32 {}
-
-    // #[il2cpp_getter_property(property = "MainAffixID")]
-    // pub fn get_MainAffixID(&self) -> u32 {}
 
     #[il2cpp_getter_property(property = "MainAffixPropertyType")]
     pub fn get_MainAffixPropertyType(&self) -> RPG_GameCore_AvatarPropertyType {}
@@ -409,20 +385,6 @@ pub struct RPG_GameCore_RelicSetConfigRow;
 impl RPG_GameCore_RelicSetConfigRow {
     #[il2cpp_field(name = "SetName")]
     pub fn SetName(&self) -> RPG_Client_TextID__Boxed {}
-}
-
-#[il2cpp_ref_type("RPG.GameCore.RelicSetConfigExcelTable")]
-pub struct RPG_GameCore_RelicSetConfigExcelTable;
-impl RPG_GameCore_RelicSetConfigExcelTable {
-    #[il2cpp_method(name = "GetData", args = ["uint"])]
-    pub fn GetData(set_id: u32) -> RPG_GameCore_RelicSetConfigRow {}
-}
-
-#[il2cpp_ref_type("RPG.GameCore.RelicBaseTypeExcelTable")]
-pub struct RPG_GameCore_RelicBaseTypeExcelTable;
-impl RPG_GameCore_RelicBaseTypeExcelTable {
-    #[il2cpp_method(name = "GetData", args = ["RPG.GameCore.RelicType"])]
-    pub fn GetData(relic_type: RPG_GameCore_RelicSetType) -> RPG_GameCore_RelicBaseTypeRow {}
 }
 
 #[il2cpp_ref_type("RPG.GameCore.RelicBaseTypeRow")]
@@ -626,3 +588,96 @@ impl RPG_Client_AvatarExtensions {
 
 #[il2cpp_ref_type("System.Object")]
 pub struct SystemObjectDummy;
+
+#[il2cpp_ref_type("RPG.GameCore.EquipmentExcelTable")]
+pub struct RPG_GameCore_EquipmentExcelTable;
+impl RPG_GameCore_EquipmentExcelTable {
+    #[il2cpp_method(name = "get_dataDict", args = [])]
+    pub fn get_dataDict() -> *mut std::ffi::c_void {}
+
+    #[il2cpp_method(name = "IsDataLoaded", args = [])]
+    pub fn IsDataLoaded() -> bool {}
+
+    #[il2cpp_method(name = "LoadData", args = [])]
+    pub fn LoadData() {}
+}
+
+#[il2cpp_ref_type("RPG.GameCore.TextmapExcelTable")]
+pub struct RPG_GameCore_TextmapExcelTable;
+impl RPG_GameCore_TextmapExcelTable {
+    #[il2cpp_method(name = "get_dataDict", args = [])]
+    pub fn get_dataDict() -> *mut std::ffi::c_void {}
+
+    #[il2cpp_method(name = "IsDataLoaded", args = [])]
+    pub fn IsDataLoaded() -> bool {}
+
+    #[il2cpp_method(name = "LoadData", args = [])]
+    pub fn LoadData() {}
+	
+	#[il2cpp_method(name = "GetLanguage", args = [])]
+    pub fn GetLanguage() -> Il2CppString {}
+}
+
+#[il2cpp_ref_type("RPG.GameCore.RelicSetConfigExcelTable")]
+pub struct RPG_GameCore_RelicSetConfigExcelTable;
+impl RPG_GameCore_RelicSetConfigExcelTable {
+    #[il2cpp_method(name = "GetData", args = ["uint"])]
+    pub fn GetData(set_id: u32) -> RPG_GameCore_RelicSetConfigRow {}
+
+    #[il2cpp_method(name = "get_dataDict", args = [])]
+    pub fn get_dataDict() -> *mut std::ffi::c_void {}
+
+    #[il2cpp_method(name = "IsDataLoaded", args = [])]
+    pub fn IsDataLoaded() -> bool {}
+
+    #[il2cpp_method(name = "LoadData", args = [])]
+    pub fn LoadData() {}
+}
+
+#[il2cpp_ref_type("RPG.GameCore.RelicBaseTypeExcelTable")]
+pub struct RPG_GameCore_RelicBaseTypeExcelTable;
+impl RPG_GameCore_RelicBaseTypeExcelTable {
+    #[il2cpp_method(name = "GetData", args = ["RPG.GameCore.RelicType"])]
+    pub fn GetData(relic_type: RPG_GameCore_RelicSetType) -> RPG_GameCore_RelicBaseTypeRow {}
+
+    #[il2cpp_method(name = "get_dataDict", args = [])]
+    pub fn get_dataDict() -> *mut std::ffi::c_void {}
+
+    #[il2cpp_method(name = "IsDataLoaded", args = [])]
+    pub fn IsDataLoaded() -> bool {}
+
+    #[il2cpp_method(name = "LoadData", args = [])]
+    pub fn LoadData() {}
+}
+
+#[il2cpp_ref_type("RPG.GameCore.AvatarPropertyExcelTable")]
+pub struct RPG_GameCore_AvatarPropertyExcelTable;
+impl RPG_GameCore_AvatarPropertyExcelTable {
+    #[il2cpp_method(name = "GetData", args = ["RPG.GameCore.AvatarPropertyType"])]
+    pub fn GetData(property_type: RPG_GameCore_AvatarPropertyType) -> RPG_GameCore_AvatarPropertyRow {}
+
+    #[il2cpp_method(name = "get_dataDict", args = [])]
+    pub fn get_dataDict() -> *mut std::ffi::c_void {}
+
+    #[il2cpp_method(name = "IsDataLoaded", args = [])]
+    pub fn IsDataLoaded() -> bool {}
+
+    #[il2cpp_method(name = "LoadData", args = [])]
+    pub fn LoadData() {}
+}
+
+#[il2cpp_ref_type("RPG.GameCore.AvatarExcelTable")]
+pub struct RPG_GameCore_AvatarExcelTable;
+impl RPG_GameCore_AvatarExcelTable {
+    #[il2cpp_method(name = "GetData", args = ["uint"])]
+    pub fn GetData(avatar_id: u32) -> RPG_GameCore_AvatarRow {}
+    
+    #[il2cpp_method(name = "get_dataDict", args = [])]
+    pub fn get_dataDict() -> *mut std::ffi::c_void {}
+
+    #[il2cpp_method(name = "IsDataLoaded", args = [])]
+    pub fn IsDataLoaded() -> bool {}
+
+    #[il2cpp_method(name = "LoadData", args = [])]
+    pub fn LoadData() {}
+}
